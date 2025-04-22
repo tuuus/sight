@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import NoteTrainer from './NoteTrainer';
 
 const App: React.FC = () => {
