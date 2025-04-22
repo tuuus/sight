@@ -1,4 +1,5 @@
 import React from 'react';
+import { Analytics } from "@vercel/analytics/react"
 import NoteTrainer from './NoteTrainer';
 
 const App: React.FC = () => {
