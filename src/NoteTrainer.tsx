@@ -3,7 +3,7 @@ import Staff from './Staff';
 import Keyboard from './Keyboard';
 
 const NOTES = [
-  'c', 'd', 'e', 'f', 'g', 'a', 'b', // Notes naturelles
+  'c', 'd', 'e', 'f', 'g', 'a', 'B', // Notes naturelles
   'c#', 'd#', 'f#', 'g#', 'a#', // Notes avec dièse
   'db', 'eb', 'gb', 'ab', 'bb'  // Notes avec bémol
 ];
@@ -15,7 +15,7 @@ const flatsToSharps: Record<string, string> = {
   'eb': 'd#',
   'gb': 'f#',
   'ab': 'g#',
-  'bb': 'a#',
+  'Bb': 'a#',
 };
 
 const getRandomNote = (includeAccidentals: boolean) => {
@@ -32,7 +32,7 @@ const getRandomNote = (includeAccidentals: boolean) => {
 const NoteTrainer: React.FC = () => {
     const [alterationsEnabled, setAlterationsEnabled] = useState<boolean>(true);
 
-    const INITIAL_QUEUE = Array.from({ length: 5 }, () => getRandomNote(false));
+    const INITIAL_QUEUE = Array.from({ length: 5 }, () => getRandomNote(true));
     const [noteQueue, setNoteQueue] = useState<string[]>(INITIAL_QUEUE);
     const noteQueueRef = useRef<string[]>(noteQueue); // Référence toujours à jour
     const [highlightColor, setHighlightColor] = useState<'none' | 'green' | 'red'>('none');
@@ -45,8 +45,8 @@ const NoteTrainer: React.FC = () => {
   
     // Fonction pour normaliser la note (dièse ↔ bémol)
     const normalizeNote = (note: string) => {
-      if (flatsToSharps[note]) return flatsToSharps[note]; // Si bémol, renvoyer le dièse correspondant
       const convertToQuarterNote = (note: string) => note.replace(/\/\d+$/, '');
+      if (flatsToSharps[convertToQuarterNote(note)]) return flatsToSharps[convertToQuarterNote(note)]; // Si bémol, renvoyer le dièse correspondant
       return convertToQuarterNote(note);; // Sinon, retourner la note naturelle
     };
 
