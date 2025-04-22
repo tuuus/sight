@@ -1,9 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import Vex from 'vexflow';
+import {
+  Renderer,
+  Stave,
+  StaveNote,
+  Formatter,
+  Voice,
+  Accidental,
+} from 'vexflow';
 import './Staff.css';
-
-const { Flow } = Vex;
-const { Renderer, Stave, StaveNote, Formatter, Voice, Accidental } = Flow;
 
 interface StaffProps {
   noteQueue: string[];
@@ -11,7 +15,11 @@ interface StaffProps {
   highlightColor: 'none' | 'green' | 'red';
 }
 
-const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlightColor }) => {
+const Staff: React.FC<StaffProps> = ({
+  noteQueue = [],
+  highlightIndex,
+  highlightColor,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -22,8 +30,7 @@ const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlight
 
     const renderer = new Renderer(canvas, Renderer.Backends.CANVAS);
     const context = renderer.getContext();
-    const width = Math.max(800, window.innerWidth);
-    renderer.resize(width, 500);
+    renderer.resize(window.innerWidth, 500);
     context.setFont('Arial', 10, '').setBackgroundFillStyle('#fff');
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.scale(2.1, 3);
@@ -38,18 +45,12 @@ const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlight
           duration: 'q',
         });
 
-        // Ajout des accidentals (dièses et bémols)
-        const noteTyped = staveNote as unknown as {
-          addAccidental: (index: number, accidental: Accidental) => void;
-        };
-
         if (note.includes('#')) {
-          noteTyped.addAccidental(0, new Accidental('#'));
+          staveNote.addAccidental(0, new Accidental('#'));
         } else if (note.includes('b')) {
-          noteTyped.addAccidental(0, new Accidental('b'));
+          staveNote.addAccidental(0, new Accidental('b'));
         }
 
-        // Application de la surbrillance
         if (index === highlightIndex && highlightColor !== 'none') {
           staveNote.setStyle({
             fillStyle: highlightColor,
@@ -65,7 +66,7 @@ const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlight
         beatValue: 4,
       });
 
-      voice.setStrict(false); // autorise les durées "souples"
+      voice.setMode(Voice.Mode.SOFT);
       voice.addTickables(notes);
 
       new Formatter().joinVoices([voice]).format([voice], canvas.width - 100);
