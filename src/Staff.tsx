@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { Renderer, Stave, StaveNote, Formatter, Voice, Accidental } from 'vexflow';
-
+import Vex from 'vexflow';
 import './Staff.css';
+
+const { Flow } = Vex;
+const { Renderer, Stave, StaveNote, Formatter, Voice, Accidental } = Flow;
 
 interface StaffProps {
   noteQueue: string[];
@@ -37,9 +39,9 @@ const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlight
 
         // Ajout des accidentals (dièses et bémols)
         if (note.includes('#')) {
-          staveNote.addModifier(0, new Accidental('#')); // Ajout du dièse
+          staveNote.addAccidental(0, new Accidental('#')); // Ajoute un dièse
         } else if (note.includes('b')) {
-          staveNote.addModifier(0, new Accidental('b')); // Ajout du dièse
+          staveNote.addAccidental(0, new Accidental('b')); // Ajoute un bémol
         }
 
         // Application de la surbrillance (si activée)
