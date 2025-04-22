@@ -1,11 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-
-import VexFlow from 'vexflow';
+import { Renderer, Stave, StaveNote, Formatter, Voice, Accidental } from 'vexflow';
 
 import './Staff.css';
-
-const { Flow } = VexFlow;
-const { Renderer, Stave, StaveNote, Formatter, Voice, Accidental } = Flow;
 
 interface StaffProps {
   noteQueue: string[];
