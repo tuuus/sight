@@ -1,0 +1,37 @@
+/* Style du conteneur principal de la portée */
+.staff-container {
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Garde la direction verticale */
+  padding: 20px 0;
+  box-sizing: border-box;
+  height: 500px; /* Ajuste la hauteur pour que ça prenne moins d'espace */
+}
+
+/* Titre de la portée */
+.staff-title {
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+/* Canvas (portée musicale) */
+canvas {
+  width: 10%; /* Utilise 100% de la largeur du conteneur */
+  height: 200%; /* Utilise 100% de la hauteur du conteneur */
+  border: none;
+  background-color: rgb(252, 251, 251); /* Assurer que le fond du canevas est blanc */
+}
+
+/* Sélecteur de tonalité */
+.key-signature-selector {
+  margin-bottom: 80px; /* Espacement entre le sélecteur et la portée */
+  text-align: center;
+}
+
+#key-signature {
+  padding: 8px;
+  font-size: 16px;
+}

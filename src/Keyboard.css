@@ -1,0 +1,116 @@
+/* Conteneur global pour centrer le clavier */
+.keyboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative; /* Position relative pour ne pas chevaucher la portée */
+  bottom: 0;
+  background-color: white;
+  z-index: 10;
+  padding: 20px 0;
+  box-sizing: border-box;
+  margin-top: 20px; /* Assurer un espacement entre la portée et le clavier */
+}
+
+
+.white-keys, .black-keys {
+  display: flex;
+  justify-content: center; /* Aligne les touches au centre */
+  position: relative;
+}
+
+.white-keys {
+  width: 100%; /* Les touches blanches prennent toute la largeur de l'écran */
+}
+
+.black-keys {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Aligne les touches noires au centre des touches blanches */
+  pointer-events: none; /* Permet aux événements de passer à travers pour les touches blanches */
+}
+
+.white-key {
+  position: relative;
+  width: 120px; /* Largeur des touches blanches */
+  height: 350px; /* Hauteur des touches blanches */
+  background-color: white;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  z-index: 1;
+  margin-left: -1px; /* Enlève les petites bordures entre les touches */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px; /* Bordures arrondies pour un look plus moderne */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre douce */
+  transition: transform 0.1s, box-shadow 0.1s ease; /* Effet d'animation */
+}
+
+.black-key {
+  position: absolute;
+  width: 80px; /* Largeur des touches noires */
+  height: 250px; /* Hauteur des touches noires */
+  background-color: black;
+  z-index: 2;
+  pointer-events: auto; /* Permet aux événements de souris sur les touches noires */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px; /* Bordures arrondies pour un look plus moderne */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre douce */
+  transition: transform 0.1s, box-shadow 0.1s ease; /* Effet d'animation */
+}
+
+/* Position des touches noires */
+.black-key.pos-0 { left: calc(37.5% + 50px - 30px); } /* C# centré entre C et D */
+.black-key.pos-1 { left: calc(38.4% + 150px - 30px); } /* D# centré entre D et E */
+.black-key.pos-3 { left: calc(39.3% + 350px - 30px); } /* F# centré entre F et G */
+.black-key.pos-4 { left: calc(40.2% + 450px - 30px); } /* G# centré entre G et A */
+.black-key.pos-5 { left: calc(41.1% + 550px - 30px); } /* A# centré entre A et B */
+
+.white-label, .black-label {
+  font-size: 18px; /* Taille de police ajustée pour les noms des touches */
+  color: #fff;
+  font-weight: bold;
+}
+
+.white-key.active {
+  transform: translateY(4px);
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.black-key.active {
+  transform: translateY(4px); /* Effet enfoncé */
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre quand la touche est enfoncée */
+}
+
+.white-label {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  color: black;
+  font-weight: bold;
+}
+
+.black-label {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+}
+
+.black-key-spacer {
+  width: 40px;
+}
