@@ -46,9 +46,9 @@ const Staff: React.FC<StaffProps> = ({
         });
 
         if (note.includes('#')) {
-          staveNote.addAccidental(0, new Accidental('#'));
+          staveNote.modifiers.push(new Accidental('#'));
         } else if (note.includes('b')) {
-          staveNote.addAccidental(0, new Accidental('b'));
+          staveNote.modifiers.push(new Accidental('b'));
         }
 
         if (index === highlightIndex && highlightColor !== 'none') {
