@@ -1,5 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-import Vex from 'vexflow';
+
+import * as VexFlow from 'vexflow';
+
+const Vex = VexFlow || {}; // Si VexFlow n'est pas défini, Flow sera un objet vide
+if (!Vex) {
+  console.error('VexFlow n\'est pas correctement chargé.');
+}
+
 import './Staff.css';
 
 const { Flow } = Vex;
