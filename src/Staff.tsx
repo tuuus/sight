@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 
-import {Flow} from 'vexflow';
+import VexFlow from 'vexflow';
 
 import './Staff.css';
 
+const { Flow } = VexFlow;
 const { Renderer, Stave, StaveNote, Formatter, Voice, Accidental } = Flow;
 
 interface StaffProps {
