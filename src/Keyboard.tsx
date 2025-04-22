@@ -7,8 +7,8 @@ interface KeyboardProps {
 }
 
 const Keyboard: React.FC<KeyboardProps> = ({ notation = 'en', onNotePlayed }) => {
-  const whiteNotes = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
-  const blackNotes = ['C#', 'D#', '', 'F#', 'G#', 'A#', ''];
+  const whiteNotes = ['s', 'd', 'f', 'g', 'h', 'j', 'k'];
+  const blackNotes = ['e', 'r', '', 'y', 'u', 'i', ''];
 
   const noteMap: Record<string, string> = {
     C: 'Do',
