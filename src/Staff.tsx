@@ -46,9 +46,9 @@ const Staff: React.FC<StaffProps> = ({
         });
 
         if (note.includes('#')) {
-          staveNote.addModifier(0, new Accidental('#')); // Ajoute un dièse
+          staveNote.addModifier(new Accidental('#')); // Ajoute un dièse à la note
         } else if (note.includes('b')) {
-          staveNote.addModifier(0, new Accidental('b')); // Ajoute un bémol
+          staveNote.addModifier(new Accidental('b')); // Ajoute un bémol à la note
         }
         
 
