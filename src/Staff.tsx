@@ -1,13 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import {
-  Renderer,
-  Stave,
-  StaveNote,
-  Formatter,
-  Voice,
-  Accidental,
-} from 'vexflow';
+import Vex from 'vexflow';
 import './Staff.css';
+
+const { Flow } = Vex;
+const { Renderer, Stave, StaveNote, Formatter, Voice, Accidental } = Flow;
 
 interface StaffProps {
   noteQueue: string[];
@@ -26,7 +22,8 @@ const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlight
 
     const renderer = new Renderer(canvas, Renderer.Backends.CANVAS);
     const context = renderer.getContext();
-    renderer.resize(window.innerWidth, 500);
+    const width = Math.max(800, window.innerWidth);
+    renderer.resize(width, 500);
     context.setFont('Arial', 10, '').setBackgroundFillStyle('#fff');
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.scale(2.1, 3);
@@ -41,14 +38,18 @@ const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlight
           duration: 'q',
         });
 
-        // Ajout des altérations
+        // Ajout des accidentals (dièses et bémols)
+        const noteTyped = staveNote as unknown as {
+          addAccidental: (index: number, accidental: Accidental) => void;
+        };
+
         if (note.includes('#')) {
-          staveNote.addModifier(new Accidental('#'), 0);
+          noteTyped.addAccidental(0, new Accidental('#'));
         } else if (note.includes('b')) {
-          staveNote.addModifier(new Accidental('b'), 0);
+          noteTyped.addAccidental(0, new Accidental('b'));
         }
 
-        // Application de la surbrillance (si activée)
+        // Application de la surbrillance
         if (index === highlightIndex && highlightColor !== 'none') {
           staveNote.setStyle({
             fillStyle: highlightColor,
@@ -60,11 +61,11 @@ const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlight
       });
 
       const voice = new Voice({
-        num_beats: notes.length,
-        beat_value: 4,
+        numBeats: notes.length,
+        beatValue: 4,
       });
 
-      voice.setMode(Voice.Mode.SOFT); // Permet d'ajouter plus de notes sans contrainte stricte
+      voice.setStrict(false); // autorise les durées "souples"
       voice.addTickables(notes);
 
       new Formatter().joinVoices([voice]).format([voice], canvas.width - 100);

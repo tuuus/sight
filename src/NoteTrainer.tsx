@@ -5,7 +5,7 @@ import Keyboard from './Keyboard';
 const NOTES = [
   'c', 'd', 'e', 'f', 'g', 'a', 'B', // Notes naturelles
   'c#', 'd#', 'f#', 'g#', 'a#', // Notes avec dièse
-  'db', 'eb', 'gb', 'ab', 'bb'  // Notes avec bémol
+  'db', 'eb', 'gb', 'ab', 'Bb'  // Notes avec bémol
 ];
 
 // Mappage pour traiter les dièses et bémols comme équivalents
@@ -15,7 +15,7 @@ const flatsToSharps: Record<string, string> = {
   'eb': 'd#',
   'gb': 'f#',
   'ab': 'g#',
-  'Bb': 'a#',
+  'bb': 'a#',
 };
 
 const getRandomNote = (includeAccidentals: boolean) => {
