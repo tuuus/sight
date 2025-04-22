@@ -1,5 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-import { Renderer, Stave, StaveNote, Accidental, Formatter, Voice } from 'vexflow'; // Utilise VexFlow directement
+import {
+  Renderer,
+  Stave,
+  StaveNote,
+  Formatter,
+  Voice,
+  Accidental,
+} from 'vexflow';
 import './Staff.css';
 
 interface StaffProps {
@@ -29,18 +36,16 @@ const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlight
 
     try {
       const notes = noteQueue.map((note, index) => {
-        // S'assurer que la note a un format attendu comme 'c/4', 'd#/4', etc.
-        const [key, octave] = note.split('/');
         const staveNote = new StaveNote({
-          keys: [`${key}/${octave}`], // Utilisation du format 'c/4', 'd#/4', etc.
-          duration: 'q', // Note de quart de durée
+          keys: [note],
+          duration: 'q',
         });
 
-        // Ajout des accidentels (dièses et bémols)
+        // Ajout des altérations
         if (note.includes('#')) {
-          staveNote.addAccidental(0, new Accidental('#')); // Ajoute un dièse
+          staveNote.addModifier(new Accidental('#'), 0);
         } else if (note.includes('b')) {
-          staveNote.addAccidental(0, new Accidental('b')); // Ajoute un bémol
+          staveNote.addModifier(new Accidental('b'), 0);
         }
 
         // Application de la surbrillance (si activée)
@@ -55,8 +60,8 @@ const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlight
       });
 
       const voice = new Voice({
-        numBeats: notes.length,  // Utilisation de 'numBeats' pour spécifier le nombre de beats
-        beatValue: 4,
+        num_beats: notes.length,
+        beat_value: 4,
       });
 
       voice.setMode(Voice.Mode.SOFT); // Permet d'ajouter plus de notes sans contrainte stricte
