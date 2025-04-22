@@ -46,9 +46,9 @@ const Staff: React.FC<StaffProps> = ({
         });
 
         if (note.includes('#')) {
-          staveNote.modifiers.push(new Accidental('#'));
+          staveNote.addAccidental(0, new Accidental('#'));  // Ajoute un dièse
         } else if (note.includes('b')) {
-          staveNote.modifiers.push(new Accidental('b'));
+          staveNote.addAccidental(0, new Accidental('b'));  // Ajoute un bémol
         }
 
         if (index === highlightIndex && highlightColor !== 'none') {
