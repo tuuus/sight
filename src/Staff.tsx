@@ -37,9 +37,9 @@ const Staff: React.FC<StaffProps> = ({ noteQueue = [], highlightIndex, highlight
 
         // Ajout des accidentals (dièses et bémols)
         if (note.includes('#')) {
-          staveNote.addAccidental(0, new Accidental('#')); // Ajoute un dièse
+          staveNote.addModifier(0, new Accidental('#')); // Ajout du dièse
         } else if (note.includes('b')) {
-          staveNote.addAccidental(0, new Accidental('b')); // Ajoute un bémol
+          staveNote.addModifier(0, new Accidental('b')); // Ajout du dièse
         }
 
         // Application de la surbrillance (si activée)
