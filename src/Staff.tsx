@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import Flow from 'vexflow';
+import {Flow} from 'vexflow';
 
 import './Staff.css';
 
